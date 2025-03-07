@@ -18,8 +18,19 @@ public class OptionMenu {
 		while (!end) {
 			try {
 				System.out.print("\nEnter your customer number: ");
+
+				while (!menuInput.hasNextInt()) {
+					menuInput.next();
+					System.out.print("Invalid input. Please enter a valid customer number: ");
+				}
+
 				customerNumber = menuInput.nextInt();
+
 				System.out.print("\nEnter your PIN number: ");
+				while (!menuInput.hasNextInt()) {
+					menuInput.next();
+					System.out.print("Invalid input. Please enter a valid PIN number: ");
+				}
 				pinNumber = menuInput.nextInt();
 				Iterator it = data.entrySet().iterator();
 				while (it.hasNext()) {
