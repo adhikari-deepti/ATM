@@ -11,6 +11,27 @@ public class OptionMenu {
 	DecimalFormat moneyFormat = new DecimalFormat("'$'###,##0.00");
 	HashMap<Integer, Account> data = new HashMap<Integer, Account>();
 
+//generating two factor authentication with using a otp (One-Time-Password)
+	
+	public boolean authentication(Account acc) {
+		String generatedOTP = generatedOTP(); //Generated OTP
+		System.out.println("Your OTP password is:" + generatedOTP); //Providing User with the OTP. In real life this would get sent to your phone or email
+		
+		System.out.println("Enter the code sent to you:"); //Prompting the user
+		String enteredOTP = menuInput.next(); //Letting user enter code
+		 
+		 if (generatedOTP.equals(enteredOTP)) {
+		        return true;  // OTP is valid, authentication successful
+		    } else {
+		        return false;  // OTP is incorrect, authentication failed
+		    }
+		}
+		
+	public String generatedOTP() {
+		// random 6 digit number
+		 return String.format("%06d", (int)(Math.random() * 1000000)); // Providing new code
+	}
+		
 	public void getLogin() throws IOException {
 		boolean end = false;
 		int customerNumber = 0;
@@ -25,10 +46,13 @@ public class OptionMenu {
 				while (it.hasNext()) {
 					Map.Entry pair = (Map.Entry) it.next();
 					Account acc = (Account) pair.getValue();
-					if (data.containsKey(customerNumber) && pinNumber == acc.getPinNumber()) {
-						getAccountType(acc);
-						end = true;
-						break;
+					if (data.containsKey(customerNumber) && pinNumber == acc.getPinNumber()) 
+						if (authentication(acc)) {
+							getAccountType(acc); // Making sure the authentication happens after correct credentials where entered
+							end = true;
+							break;
+						} else {
+							System.out.println("\nAuthentication failed. Incorrect OTP."); // Updated print statment
 					}
 				}
 				if (!end) {
