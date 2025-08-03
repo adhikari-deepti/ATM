@@ -6,6 +6,7 @@ public class ATM {
 		OptionMenu optionMenu = new OptionMenu();
 		introduction();
 		optionMenu.mainMenu();
+		System.out.println("\n Done.\n");
 	}
 
 	public static void introduction() {
