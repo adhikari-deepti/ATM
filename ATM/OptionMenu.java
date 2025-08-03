@@ -208,6 +208,7 @@ public class OptionMenu {
 				menuInput.next();
 			}
 		}
+		System.out.println("\nPayment Sucesss.\n");
 		System.out.println("\nThank You for using this ATM.\n");
 		menuInput.close();
 		System.exit(0);
